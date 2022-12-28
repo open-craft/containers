@@ -51,3 +51,7 @@ if [[ -d "${SUITECRM_BASE_DIR}/public" ]]; then
 else
     ensure_web_server_app_configuration_exists "suitecrm" --type php --apache-move-htaccess "no"
 fi
+
+# Adds support for scheduled tasks
+echo "* * * * * cd /bitnami/suitecrm; php -f cron.php > /dev/null 2>&1" > /etc/cron.d/suitecrm_scheduled_tasks
+chmod +x /etc/cron.d/suitecrm_scheduled_tasks
